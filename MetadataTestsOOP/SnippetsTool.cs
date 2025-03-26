@@ -1,9 +1,10 @@
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Extensions.Mcp;
 using Microsoft.Extensions.Logging;
-using static MetadataTestsOOP.ToolsInformation;
+using static FunctionsSnippetTool.ToolsInformation;
 
-namespace MetadataTestsOOP;
+namespace FunctionsSnippetTool;
+
 public class SnippetsTool(ILogger<SnippetsTool> logger)
 {
     private const string BlobPath = "snippets/{mcptoolargs." + SnippetNamePropertyName + "}.json";

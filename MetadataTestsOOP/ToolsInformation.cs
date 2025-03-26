@@ -1,4 +1,4 @@
-namespace MetadataTestsOOP;
+namespace FunctionsSnippetTool;
 
 internal sealed class ToolsInformation
 {
