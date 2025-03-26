@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Extensions.Mcp;
 using Microsoft.Extensions.Logging;
@@ -12,8 +10,7 @@ public class SnippetsTool(ILogger<SnippetsTool> logger)
 
     [Function(nameof(GetSnippet))]
     public object GetSnippet(
-        [McpToolTrigger(GetSnippetToolName, GetSnippetToolDescription)] string context,
-        [McpToolProperty(SnippetNamePropertyName, PropertyType, SnippetNamePropertyDescription)] string name,
+        [McpToolTrigger(GetSnippetToolName, GetSnippetToolDescription)] ToolInvocationContext context,
         [BlobInput(BlobPath)] string snippetContent)
     {
         return snippetContent;
