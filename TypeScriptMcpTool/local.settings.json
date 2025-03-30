@@ -1,0 +1,8 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "swapblobtest1_STORAGE": "DefaultEndpointsProtocol=https;AccountName=swapblobtest1;AccountKey=sNSxeHYyYIsx00Sov8mF2vIdSnSWk4/F0NEcgHEiFebqetO+tzwxR2A0ihwVaepT5Z3Qk3qQ0oOV+ASt4tHnOQ==;EndpointSuffix=core.windows.net"
+  }
+}
