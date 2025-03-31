@@ -7,9 +7,9 @@ export async function mcpToolTrigger(context: InvocationContext): Promise<string
 app.mcpTool('mcpToolTriggerTest', {
     toolName: 'McpToolTriggerTest',
     description: 'MCP Tool With Azure Functions Description',
-    return: output.storageBlob({
-        path: 'output/mcpOutput.txt',
-        connection: 'swapblobtest1_STORAGE',
-    }),
+    // return: output.storageBlob({
+    //     path: 'output/mcpOutput.txt',
+    //     connection: 'swapblobtest1_STORAGE',
+    // }),
     handler: mcpToolTrigger
 });

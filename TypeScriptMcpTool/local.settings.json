@@ -2,7 +2,6 @@
   "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "FUNCTIONS_WORKER_RUNTIME": "node",
-    "swapblobtest1_STORAGE": "{your blob storage connection string}"
+    "FUNCTIONS_WORKER_RUNTIME": "node"
   }
 }
