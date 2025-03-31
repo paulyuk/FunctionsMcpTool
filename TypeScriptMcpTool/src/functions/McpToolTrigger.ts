@@ -9,7 +9,7 @@ app.mcpTool('mcpToolTriggerTest', {
     description: 'MCP Tool With Azure Functions Description',
     // return: output.storageBlob({
     //     path: 'output/mcpOutput.txt',
-    //     connection: 'swapblobtest1_STORAGE',
+    //     connection: 'blob_connection_for_storage',
     // }),
     handler: mcpToolTrigger
 });

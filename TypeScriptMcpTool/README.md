@@ -19,7 +19,19 @@ Run the following command to install the necessary dependencies. Note that `@azu
 npm install
 ```
 
-### 4. Debug the Code
+### 4. Build the Project
+Run the following command to build the project:
+```bash
+npm run build
+```
+
+### 5. Start the Azure Functions
+Run the following command to start the Azure Functions:
+```bash
+func start
+```
+
+### 6. Debug the Code
 Debug the code in debug mode using your preferred development environment.
 
 ## Verification
@@ -29,14 +41,19 @@ Use the MCP Tool Inspector to validate the MCP Tool.
 
 1. Run the MCP Inspector using the following command:
 ```bash
-MCpInspector
+npx @modelcontextprotocol/inspector node build/index.js
 ```
 
-2. Connect to the endpoint:
+2. Open the following URL in your browser:
+```
+http://localhost:5173/
+```
+
+3. Connect to the endpoint:
 ```
 http://localhost:7071/api/sse
 ```
 
-3. Click on the list of tools and test by clicking the connect button.
+4. Click on the list of tools and test by clicking the connect button.
 
 Follow these steps to ensure that the MCP Tool is properly set up and functioning with Azure Functions.
