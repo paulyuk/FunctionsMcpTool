@@ -73,11 +73,11 @@ or
 
 ### VS Code - Copilot Edits
 
-1. Add MCP Server from command palette and add URL to your running Function app's SSE endpoint:
+1. *Add MCP Server* from command palette and add URL to your running Function app's SSE endpoint:
     ```shell
     http://localhost:7071/api/sse
     ```
-1. List MCP servers from command palette and start the server
+1. *List MCP Servers* from command palette and start the server
 1. In Copilot chat agent mode enter a prompt to trigger the tool, e.g., select some code and enter this prompt
 
     ```plaintext
@@ -87,13 +87,13 @@ or
     ```plaintext
     Retrieve snippet1 and apply to NewFile.cs
     ```
-1. when prompted to run the tool, consent/accept
+1. When prompted to run the tool, consent/accept
 
 1. When you're done, press Ctrl+C in the terminal window to stop the `func.exe` host process.
 
 ### MCP Inspector
 
-1. In a *new terminal window, install and run MCP Inspector
+1. In a *new terminal window*, install and run MCP Inspector
 
     ```shell
     npx @modelcontextprotocol/inspector node build/index.js
@@ -101,11 +101,11 @@ or
 
 1. CTRL click to load the MCP Inspector web app from the URL displayed by the app (e.g. http://localhost:5173/#resources)
 1. Set the transport type to `SSE` 
-1. Set the URL to your running Function app's SSE endpoint and Connect:
+1. Set the URL to your running Function app's SSE endpoint and *Connect*:
     ```shell
     http://localhost:7071/api/sse
     ```
-1. List Tools.  Click on a tool and Run Tool.  
+1. *List Tools*.  Click on a tool and *Run Tool*.  
 
 ## Deploy to Azure
 
