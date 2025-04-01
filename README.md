@@ -27,6 +27,7 @@ If you're looking for this sample in more languages check out the [Node.js/TypeS
 
 + [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 + [Azure Functions Core Tools](https://learn.microsoft.com/azure/azure-functions/functions-run-local?pivots=programming-language-csharp#install-the-azure-functions-core-tools)
++ [Azure Developer CLI](https://aka.ms/azd)
 + To use Visual Studio to run and debug locally:
   + [Visual Studio 2022](https://visualstudio.microsoft.com/vs/).
   + Make sure to select the **Azure development** workload during installation.
@@ -47,10 +48,13 @@ or
     ```shell
     azd init --template functions-quickstart-dotnet-mcp-azd
     ```
+    >**NYI** `azd init` will not work until we publish this to Awesome AZD Gallery.  For now just clone this repo.
 
     Supply an environment name, such as `mcpquickstart` when prompted. In `azd`, the environment is used to maintain a unique deployment context for your app.
 
 ## Prepare your local environment
+
+An Azure Storage Emulator is needed for this particular sample because we will save and get snippets from blob storage. 
 
 1. Start Azurite
 
@@ -110,14 +114,14 @@ Note by default this will use the webhooks route: `/runtime/webhooks/mcp/sse`.  
 
 ## Deploy to Azure
 
-Run this command to provision the function app, with any required Azure resources, and deploy your code:
+Run this [azd](https://aka.ms/azd) command to provision the function app, with any required Azure resources, and deploy your code:
 
 ```shell
 azd up
 ```
 >**Using key based auth**
 > This function requires a system key by default which can be obtained from the [portal](https://learn.microsoft.com/en-us/azure/azure-functions/function-keys-how-to?tabs=azure-portal), and then update the URL in your host/client to be:
-> `https:/<funcappname>.azurewebsites.net/runtime/webhooks/mcp/sse?code=<systemkey_for_mcp_extension>`
+> `https://<funcappname>.azurewebsites.net/runtime/webhooks/mcp/sse?code=<systemkey_for_mcp_extension>`
 > via command line you can call `az functionapp keys list --resource-group <resource_group> --name <function_app_name>`
 > Additionally, [EasyAuth](https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization) can be used to set up your favorite OAuth provider including Entra.  
 
