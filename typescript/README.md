@@ -39,6 +39,8 @@ docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 \
     mcr.microsoft.com/azure-storage/azurite
 ```
 
+>**Note** if you use Azurite coming from VS Code extension you need to run `Azurite: Start` now or you will see errors.
+
 ### 6. Start the Azure Functions
 Run the following command to start the Azure Functions:
 ```bash

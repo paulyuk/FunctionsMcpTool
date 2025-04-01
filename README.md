@@ -63,6 +63,8 @@ An Azure Storage Emulator is needed for this particular sample because we will s
         mcr.microsoft.com/azure-storage/azurite
     ```
 
+>**Note** if you use Azurite coming from VS Code extension you need to run `Azurite: Start` now or you will see errors.
+
 ## Run your MCP Server locally from the terminal
 
 1. From the `dotnet` folder, run this command to start the Functions host locally:
