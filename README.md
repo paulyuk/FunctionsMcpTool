@@ -18,11 +18,8 @@ languages:
 
 # Azure Functions .NET/C# MCP Trigger using Azure Developer CLI
 
-This template repository contains an MCP trigger reference sample for functions written in C# (isolated process mode) and deployed to Azure using the Azure Developer CLI (`azd`). The sample uses managed identity and a virtual network to make sure deployment is secure by default. You can opt out of a VNet being used in the sample by setting VNET_ENABLED to true in the parameters.
-
+This template repository contains an MCP trigger reference sample for functions written in C# (isolated process mode) and deployed to Azure using the Azure Developer CLI (`azd`). The sample uses managed identity and a virtual network to make sure deployment is secure by default. 
 If you're looking for this sample in more languages check out the [Node.js/TypeScript](typescript) and [Python]() samples.  
-
-This project is designed to run on your local computer. You can also use GitHub Codespaces:
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=836901178)
 
@@ -41,6 +38,10 @@ This project is designed to run on your local computer. You can also use GitHub 
 
 You can initialize a project from this `azd` template in one of these ways:
 
++ Clone the GitHub template repository locally
+
+or
+
 + Use this `azd init` command from an empty local (root) folder:
 
     ```shell
@@ -48,15 +49,6 @@ You can initialize a project from this `azd` template in one of these ways:
     ```
 
     Supply an environment name, such as `mcpquickstart` when prompted. In `azd`, the environment is used to maintain a unique deployment context for your app.
-
-+ Clone the GitHub template repository locally using the `git clone` command:
-
-    ```shell
-    git clone https://github.com/Azure-Samples/functions-quickstart-dotnet-mcp-azd.git
-    cd functions-quickstart-dotnet-azd
-    ```
-
-    You can also clone the repository from your own fork in GitHub.
 
 ## Prepare your local environment
 
@@ -103,17 +95,16 @@ You can initialize a project from this `azd` template in one of these ways:
 
 1. In a *new terminal window, install and run MCP Inspector
 
-```shell
-npx @modelcontextprotocol/inspector node build/index.js
-```
+    ```shell
+    npx @modelcontextprotocol/inspector node build/index.js
+    ```
 
 1. CTRL click to load the MCP Inspector web app from the URL displayed by the app (e.g. http://localhost:5173/#resources)
 1. Set the transport type to `SSE` 
 1. Set the URL to your running Function app's SSE endpoint and Connect:
-
-```shell
-http://localhost:7071/api/sse
-```
+    ```shell
+    http://localhost:7071/api/sse
+    ```
 1. List Tools.  Click on a tool and Run Tool.  
 
 ## Deploy to Azure
@@ -124,22 +115,12 @@ Run this command to provision the function app, with any required Azure resource
 azd up
 ```
 
-Alternatively, you can opt-in to a VNet being used in the sample. To do so, use `azd env` to configure `VNET_ENABLED` to `true` before running `azd up`:
+you can opt-in to a VNet being used in the sample. To do so, do this before `azd up`
 
 ```bash
 azd env set VNET_ENABLED true
-azd up
 ```
-
-You're prompted to supply these required deployment parameters:
-
-| Parameter | Description |
-| ---- | ---- |
-| _Environment name_ | An environment that's used to maintain a unique deployment context for your app. You won't be prompted if you created the local project using `azd init`.|
-| _Azure subscription_ | Subscription in which your resources are created.|
-| _Azure location_ | Azure region in which to create the resource group that contains the new Azure resources. Only regions that currently support the Flex Consumption plan are shown.|
-
-After publish completes successfully, `azd` provides you with the URL endpoints of your new functions, but without the function key values required to access the endpoints. To learn how to obtain these same endpoints along with the required function keys, see [Invoke the function on Azure](https://learn.microsoft.com/azure/azure-functions/create-first-function-azure-developer-cli?pivots=programming-language-dotnet#invoke-the-function-on-azure) in the companion article [Quickstart: Create and deploy functions to Azure Functions using the Azure Developer CLI](https://learn.microsoft.com/azure/azure-functions/create-first-function-azure-developer-cli?pivots=programming-language-dotnet).
+After publish completes successfully, `azd` provides you with the URL endpoints of your new functions, but without the function key values required to access the endpoints. 
 
 ## Redeploy your code
 
