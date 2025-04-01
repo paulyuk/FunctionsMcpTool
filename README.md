@@ -114,6 +114,9 @@ Run this command to provision the function app, with any required Azure resource
 ```shell
 azd up
 ```
+>**Known limitation in this build**
+>Deployed functions will throw initialization error on WebJobs, which will be fixed any moment.  
+
 
 you can opt-in to a VNet being used in the sample. To do so, do this before `azd up`
 
