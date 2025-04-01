@@ -62,10 +62,10 @@ You can initialize a project from this `azd` template in one of these ways:
 
 1. Start Azurite
 
-```shell
-docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 \
-    mcr.microsoft.com/azure-storage/azurite
-```
+    ```shell
+    docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 \
+        mcr.microsoft.com/azure-storage/azurite
+    ```
 
 ## Run your MCP Server locally from the terminal
 
@@ -82,11 +82,9 @@ docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 \
 ### VS Code - Copilot Edits
 
 1. Add MCP Server from command palette and add URL to your running Function app's SSE endpoint:
-
-```shell
-http://localhost:7071/api/sse
-```
-
+    ```shell
+    http://localhost:7071/api/sse
+    ```
 1. List MCP servers from command palette and start the server
 1. In Copilot chat agent mode enter a prompt to trigger the tool, e.g., select some code and enter this prompt
 
