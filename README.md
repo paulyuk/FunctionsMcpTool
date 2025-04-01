@@ -68,6 +68,7 @@ or
     func start
     ```
 
+Note by default this will use the webhooks route: `/runtime/webhooks/mcp/sse`.  Later we will use this in Azure to set the key on client/host calls: `/runtime/webhooks/mcp/sse?code=<system_key>`
 
 ## Use the MCP server from within a client/host
 
@@ -75,7 +76,7 @@ or
 
 1. **Add MCP Server** from command palette and add URL to your running Function app's SSE endpoint:
     ```shell
-    http://localhost:7071/api/sse
+    http://localhost:7071/runtime/webhooks/mcp/sse
     ```
 1. **List MCP Servers** from command palette and start the server
 1. In Copilot chat agent mode enter a prompt to trigger the tool, e.g., select some code and enter this prompt
@@ -103,7 +104,7 @@ or
 1. Set the transport type to `SSE` 
 1. Set the URL to your running Function app's SSE endpoint and **Connect**:
     ```shell
-    http://localhost:7071/api/sse
+    http://localhost:7071/runtime/webhooks/mcp/sse
     ```
 1. **List Tools**.  Click on a tool and **Run Tool**.  
 
@@ -114,11 +115,12 @@ Run this command to provision the function app, with any required Azure resource
 ```shell
 azd up
 ```
->**Known limitation in this build**
->Deployed functions will throw initialization error on WebJobs, which will be fixed any moment.  
+>**Using key based auth**
+> This function requires a system key by default which can be obtained from the [portal](https://learn.microsoft.com/en-us/azure/azure-functions/function-keys-how-to?tabs=azure-portal)
+> via command line you can call `az functionapp keys list --resource-group <resource_group> --name <function_app_name>`
+> Additionally, [EasyAuth](https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization) can be used to set up your favorite OAuth provider including Entra.  
 
-
-you can opt-in to a VNet being used in the sample. To do so, do this before `azd up`
+You can opt-in to a VNet being used in the sample. To do so, do this before `azd up`
 
 ```bash
 azd env set VNET_ENABLED true
