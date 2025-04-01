@@ -58,7 +58,7 @@ Debug the code in debug mode using your preferred development environment.
 
 1. **Add MCP Server** from command palette and add URL to your running Function app's SSE endpoint:
     ```shell
-    http://localhost:7071/runtime/webhooks/mcp/sse
+    http://0.0.0.0:7071/runtime/webhooks/mcp/sse
     ```
 1. **List MCP Servers** from command palette and start the server
 1. In Copilot chat agent mode enter a prompt to trigger the tool, e.g., select some code and enter this prompt
@@ -88,11 +88,11 @@ Debug the code in debug mode using your preferred development environment.
     npx @modelcontextprotocol/inspector node build/index.js
     ```
 
-1. CTRL click to load the MCP Inspector web app from the URL displayed by the app (e.g. http://localhost:5173/#resources)
+1. CTRL click to load the MCP Inspector web app from the URL displayed by the app (e.g. http://0.0.0.0:5173/#resources)
 1. Set the transport type to `SSE` 
 1. Set the URL to your running Function app's SSE endpoint and **Connect**:
     ```shell
-    http://localhost:7071/runtime/webhooks/mcp/sse
+    http://0.0.0.0:7071/runtime/webhooks/mcp/sse
     ```
 1. **List Tools**.  Click on a tool and **Run Tool**.  
 
