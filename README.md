@@ -85,6 +85,7 @@ docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 \
 
 ```shell
 http://localhost:7071/api/sse
+```
 
 1. List MCP servers from command palette and start the server
 1. In Copilot chat agent mode enter a prompt to trigger the tool, e.g., select some code and enter this prompt
