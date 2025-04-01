@@ -101,8 +101,6 @@ Run this [azd](https://aka.ms/azd) command to provision the function app, with a
 ```shell
 azd up
 ```
->**Known issue in Azure** the a bug fix is pending that will resolve the following initialization issue in the remote Azure Function
->`Microsoft.Azure.WebJobs.Script: .NET In-process function detected. This model is not supported by the host in the current environment. See https://aka.ms/azure-functions-retirements/in-process-model for more information.`
 
 >**Using key based auth**
 > This function requires a system key by default which can be obtained from the [portal](https://learn.microsoft.com/en-us/azure/azure-functions/function-keys-how-to?tabs=azure-portal), and then update the URL in your host/client to be:
