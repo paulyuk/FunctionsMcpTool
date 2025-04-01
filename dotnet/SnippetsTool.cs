@@ -9,7 +9,7 @@ public class SnippetsTool(ILogger<SnippetsTool> logger)
 {
     private const string BlobPath = "snippets/{mcptoolargs." + SnippetNamePropertyName + "}.json";
 
-    [Function("get-snippet")]
+    [Function(nameof(GetSnippet))]
     public object GetSnippet(
         [McpToolTrigger(GetSnippetToolName, GetSnippetToolDescription)] ToolInvocationContext context,
         [BlobInput(BlobPath)] string snippetContent)
@@ -17,7 +17,7 @@ public class SnippetsTool(ILogger<SnippetsTool> logger)
         return snippetContent;
     }
 
-    [Function("save-snippet")]
+    [Function(nameof(SaveSnippet))]
     [BlobOutput(BlobPath)]
     public string SaveSnippet(
         [McpToolTrigger(SaveSnippetToolName, SaveSnippetToolDescription)] ToolInvocationContext context,
