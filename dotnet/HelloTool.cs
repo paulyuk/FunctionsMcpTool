@@ -9,7 +9,8 @@ public class HelloTool(ILogger<SnippetsTool> logger)
 {
     [Function(nameof(SayHello))]
     public string SayHello(
-        [McpToolTrigger(HelloToolName, HelloToolDescription)] ToolInvocationContext context)
+        [McpToolTrigger(HelloToolName, HelloToolDescription)] ToolInvocationContext context
+    )
     {
         logger.LogInformation("Saying hello");
         return "Hello I am MCP Tool!";

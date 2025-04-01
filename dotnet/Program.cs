@@ -10,7 +10,8 @@ builder.EnableMcpToolMetadata();
 
 // Demonstrate how you can define tool properties without requiring
 // input bindings:
-builder.ConfigureMcpTool(GetSnippetToolName)
+builder
+    .ConfigureMcpTool(GetSnippetToolName)
     .WithProperty(SnippetNamePropertyName, PropertyType, SnippetNamePropertyDescription);
 
 builder.Build().Run();

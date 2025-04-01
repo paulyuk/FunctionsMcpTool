@@ -154,9 +154,18 @@ azd down
 
 The function code for the `GetSnippet` and `SaveSnippet` endpoints are defined in [`SnippetsTool.cs`](./dotnet/). The `McpToolsTrigger` attribute applied to the async `Run` method exposes the code function as an MCP Server.
 
-This code shows an MCP function:  
+This shows the code for a few MCP server examples (get string, get object, save object):  
 
 ```csharp
+[Function(nameof(SayHello))]
+public string SayHello(
+    [McpToolTrigger(HelloToolName, HelloToolDescription)] ToolInvocationContext context
+)
+{
+    logger.LogInformation("Saying hello");
+    return "Hello I am MCP Tool!";
+}
+
 [Function(nameof(GetSnippet))]
 public object GetSnippet(
     [McpToolTrigger(GetSnippetToolName, GetSnippetToolDescription)] ToolInvocationContext context,

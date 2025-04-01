@@ -11,8 +11,10 @@ public class SnippetsTool(ILogger<SnippetsTool> logger)
 
     [Function(nameof(GetSnippet))]
     public object GetSnippet(
-        [McpToolTrigger(GetSnippetToolName, GetSnippetToolDescription)] ToolInvocationContext context,
-        [BlobInput(BlobPath)] string snippetContent)
+        [McpToolTrigger(GetSnippetToolName, GetSnippetToolDescription)]
+            ToolInvocationContext context,
+        [BlobInput(BlobPath)] string snippetContent
+    )
     {
         return snippetContent;
     }
@@ -20,9 +22,13 @@ public class SnippetsTool(ILogger<SnippetsTool> logger)
     [Function(nameof(SaveSnippet))]
     [BlobOutput(BlobPath)]
     public string SaveSnippet(
-        [McpToolTrigger(SaveSnippetToolName, SaveSnippetToolDescription)] ToolInvocationContext context,
-        [McpToolProperty(SnippetNamePropertyName, PropertyType, SnippetNamePropertyDescription)] string name,
-        [McpToolProperty(SnippetPropertyName, PropertyType, SnippetPropertyDescription)] string snippet)
+        [McpToolTrigger(SaveSnippetToolName, SaveSnippetToolDescription)]
+            ToolInvocationContext context,
+        [McpToolProperty(SnippetNamePropertyName, PropertyType, SnippetNamePropertyDescription)]
+            string name,
+        [McpToolProperty(SnippetPropertyName, PropertyType, SnippetPropertyDescription)]
+            string snippet
+    )
     {
         return snippet;
     }
