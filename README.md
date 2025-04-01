@@ -77,7 +77,7 @@ or
     ```shell
     http://localhost:7071/api/sse
     ```
-1. **List MCP Servers(* from command palette and start the server
+1. **List MCP Servers** from command palette and start the server
 1. In Copilot chat agent mode enter a prompt to trigger the tool, e.g., select some code and enter this prompt
 
     ```plaintext
@@ -87,7 +87,7 @@ or
     ```plaintext
     Retrieve snippet1 and apply to NewFile.cs
     ```
-1. When prompted to run the tool, consent/accept
+1. When prompted to run the tool, consent by clicking **Continue**
 
 1. When you're done, press Ctrl+C in the terminal window to stop the `func.exe` host process.
 
