@@ -20,13 +20,11 @@ languages:
 
 This template repository contains an MCP trigger reference sample for functions written in C# (isolated process mode) and deployed to Azure using the Azure Developer CLI (`azd`). The sample uses managed identity and a virtual network to make sure deployment is secure by default. You can opt out of a VNet being used in the sample by setting VNET_ENABLED to true in the parameters.
 
-This source code supports the article [Quickstart: Create and deploy functions to Azure Functions using the Azure Developer CLI](https://learn.microsoft.com/azure/azure-functions/create-first-function-azure-developer-cli?pivots=programming-language-dotnet).
+If you're looking for this sample in more languages check out the [Node.js/TypeScript](typescript) and [Python]() samples.  
 
 This project is designed to run on your local computer. You can also use GitHub Codespaces:
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=836901178)
-
-This codespace is already configured with the required tools to complete this tutorial using either `azd` or Visual Studio Code. If you're working a codespace, skip down to [Prepare your local environment](#prepare-your-local-environment).
 
 ## Prerequisites
 
@@ -49,7 +47,7 @@ You can initialize a project from this `azd` template in one of these ways:
     azd init --template functions-quickstart-dotnet-mcp-azd
     ```
 
-    Supply an environment name, such as `flexquickstart` when prompted. In `azd`, the environment is used to maintain a unique deployment context for your app.
+    Supply an environment name, such as `mcpquickstart` when prompted. In `azd`, the environment is used to maintain a unique deployment context for your app.
 
 + Clone the GitHub template repository locally using the `git clone` command:
 
@@ -62,23 +60,19 @@ You can initialize a project from this `azd` template in one of these ways:
 
 ## Prepare your local environment
 
-Navigate to the `http` app folder and create a file in that folder named _local.settings.json_ that contains this JSON data:
+1. Start Azurite
 
-```json
-{
-    "IsEncrypted": false,
-    "Values": {
-        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-        "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
-    }
-}
+```shell
+docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 \
+    mcr.microsoft.com/azure-storage/azurite
 ```
 
-## Run your app locally from the terminal
+## Run your MCP Server locally from the terminal
 
-1. From the `http` folder, run this command to start the Functions host locally:
+1. From the `dotnet` folder, run this command to start the Functions host locally:
 
     ```shell
+    cd dotnet
     func start
     ```
 
@@ -92,17 +86,42 @@ Navigate to the `http` app folder and create a file in that folder named _local.
     http://localhost:7071/api/sse
     ```
 
-1. Start the server from command palette
+1. List MCP servers from command palette and start the server
 
-1. In Copilot chat (agent mode) enter a prompt to trigger the tool, e.g.
+## Use the MCP server from within a client/host
 
-```plaintext
-Add a snippet snippet1
-```
+### VS Code - Copilot Edits
 
+1. In Copilot chat agent mode enter a prompt to trigger the tool, e.g., select some code and enter this prompt
+
+    ```plaintext
+    Save this snippet as snippet1 
+    ```
+
+    ```plaintext
+    Retrieve snippet1 and apply to NewFile.cs
+    ```
 1. when prompted to run the tool, consent/accept
 
 1. When you're done, press Ctrl+C in the terminal window to stop the `func.exe` host process.
+
+### MCP Inspector
+
+1. In a *new terminal window, install and run MCP Inspector
+
+```shell
+npx @modelcontextprotocol/inspector node build/index.js
+```
+
+1. CTRL click to load the MCP Inspector web app from the URL displayed by the app (e.g. http://localhost:5173/#resources)
+1. Set the transport type to `SSE` 
+1. Set the URL to your running Function app's SSE endpoint and Connect:
+
+```shell
+http://localhost:7071/api/sse
+```
+1. List Tools.  Click on a tool and Run Tool.  
+
 
 ## Source Code
 

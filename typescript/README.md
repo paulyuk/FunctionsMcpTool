@@ -1,4 +1,4 @@
-# MCP Tool with Azure Functions
+# Azure Functions Node.js/TypeScript MCP Trigger using Azure Developer CLI
 
 This README provides instructions on how to leverage the experimental feature for the MCP Tool with Azure Functions.
 
