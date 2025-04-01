@@ -16,7 +16,7 @@ languages:
 ---
 -->
 
-# Azure Functions C# MCP Trigger using Azure Developer CLI
+# Azure Functions .NET/C# MCP Trigger using Azure Developer CLI
 
 This template repository contains an MCP trigger reference sample for functions written in C# (isolated process mode) and deployed to Azure using the Azure Developer CLI (`azd`). The sample uses managed identity and a virtual network to make sure deployment is secure by default. You can opt out of a VNet being used in the sample by setting VNET_ENABLED to true in the parameters.
 
@@ -122,33 +122,6 @@ http://localhost:7071/api/sse
 ```
 1. List Tools.  Click on a tool and Run Tool.  
 
-
-## Source Code
-
-The function code for the `GetSnippet` and `SaveSnippet` endpoints are defined in [`SnippetsTool.cs`](./FunctionsMcpTool/SnippetsTool.cs). The `McpToolsTrigger` attribute applied to the async `Run` method exposes the code function as an MCP Server.
-
-This code shows an MCP function:  
-
-```csharp
-[Function(nameof(GetSnippet))]
-public object GetSnippet(
-    [McpToolTrigger(GetSnippetToolName, GetSnippetToolDescription)] ToolInvocationContext context,
-    [BlobInput(BlobPath)] string snippetContent)
-{
-    return snippetContent;
-}
-
-[Function(nameof(SaveSnippet))]
-[BlobOutput(BlobPath)]
-public string SaveSnippet(
-    [McpToolTrigger(SaveSnippetToolName, SaveSnippetToolDescription)] ToolInvocationContext context,
-    [McpToolProperty(SnippetNamePropertyName, PropertyType, SnippetNamePropertyDescription)] string name,
-    [McpToolProperty(SnippetPropertyName, PropertyType, SnippetPropertyDescription)] string snippet)
-{
-    return snippet;
-}
-```
-
 ## Deploy to Azure
 
 Run this command to provision the function app, with any required Azure resources, and deploy your code:
@@ -157,10 +130,10 @@ Run this command to provision the function app, with any required Azure resource
 azd up
 ```
 
-Alternatively, you can opt-out of a VNet being used in the sample. To do so, use `azd env` to configure `VNET_ENABLED` to `false` before running `azd up`:
+Alternatively, you can opt-in to a VNet being used in the sample. To do so, use `azd env` to configure `VNET_ENABLED` to `true` before running `azd up`:
 
 ```bash
-azd env set VNET_ENABLED false
+azd env set VNET_ENABLED true
 azd up
 ```
 
@@ -187,4 +160,31 @@ When you're done working with your function app and related resources, you can u
 
 ```shell
 azd down
+```
+
+
+## Source Code
+
+The function code for the `GetSnippet` and `SaveSnippet` endpoints are defined in [`SnippetsTool.cs`](./FunctionsMcpTool/SnippetsTool.cs). The `McpToolsTrigger` attribute applied to the async `Run` method exposes the code function as an MCP Server.
+
+This code shows an MCP function:  
+
+```csharp
+[Function(nameof(GetSnippet))]
+public object GetSnippet(
+    [McpToolTrigger(GetSnippetToolName, GetSnippetToolDescription)] ToolInvocationContext context,
+    [BlobInput(BlobPath)] string snippetContent)
+{
+    return snippetContent;
+}
+
+[Function(nameof(SaveSnippet))]
+[BlobOutput(BlobPath)]
+public string SaveSnippet(
+    [McpToolTrigger(SaveSnippetToolName, SaveSnippetToolDescription)] ToolInvocationContext context,
+    [McpToolProperty(SnippetNamePropertyName, PropertyType, SnippetNamePropertyDescription)] string name,
+    [McpToolProperty(SnippetPropertyName, PropertyType, SnippetPropertyDescription)] string snippet)
+{
+    return snippet;
+}
 ```
