@@ -76,16 +76,6 @@ docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 \
     func start
     ```
 
-1. Test the MCP trigger with a payload using your favorite MCP Tool, e.g. Copilot Edits (Agent Mode) in VSCode Insiders. 
-
-    **Copilot Edits (Agent Mode)**
-
-    Add MCP server from command palette
-
-    ```shell
-    http://localhost:7071/api/sse
-    ```
-
 1. List MCP servers from command palette and start the server
 
 ## Use the MCP server from within a client/host
