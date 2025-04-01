@@ -5,6 +5,6 @@ metadata:
   template: functions-quickstart-dotnet-mcp-azd@1.0.0
 services:
   api:
-    project: ./FunctionsMcpTool/
+    project: ./dotnet/
     language: dotnet
     host: function
