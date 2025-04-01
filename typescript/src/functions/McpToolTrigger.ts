@@ -10,7 +10,7 @@ app.mcpTool('hello', {
     handler: mcpToolHello
 });
 
-
+// TODO: Swapnil could you please implement these to match logic in dotnet/SnippetTool.cs?
 // app.mcpTool('save-snippet', {
 //     toolName: 'save-snippet',
 //     description: 'MCP Tool that saves code snippet from user to blob storage',
@@ -21,8 +21,8 @@ app.mcpTool('hello', {
 //     handler: mcpToolTrigger
 // });
 
-// app.mcpTool('save-snippet', {
-//     toolName: 'save-snippet',
-//     description: 'MCP Tool that saves code snippet from user to blob storage',
+// app.mcpTool('get-snippet', {
+//     toolName: 'get-snippet',
+//     description: 'MCP Tool that retreives code snippet from blob storage by name',
 //     handler: mcpToolTrigger
 // });
