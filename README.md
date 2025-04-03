@@ -1,7 +1,7 @@
 <!--
 ---
-name: Azure Functions C# MCP Trigger using Azure Developer CLI
-description: This repository contains an Azure Functions MCP trigger quickstart written in C# and deployed to Azure Functions Flex Consumption using the Azure Developer CLI (azd). The sample uses managed identity and a virtual network to make sure deployment is secure by default.
+name: Getting Started with Remote MCP using Azure Functions (.NET/C#)
+description: This is a quickstart template to easily build and deploy a custom remote MCP server to the cloud using Azure functions. You can clone/restore/run on your local machine with debugging, and `azd up` to have it in the cloud in a couple minutes.  The MCP server is secured by design using keys and HTTPs, and allows more options for OAuth using EasyAuth and network isolation using VNET.  
 page_type: sample
 products:
 - azure-functions
@@ -16,9 +16,9 @@ languages:
 ---
 -->
 
-# Azure Functions .NET/C# MCP Trigger using Azure Developer CLI
+# Getting Started with Remote MCP Servers using Azure Functions (.NET/C#)
 
-This template repository contains an MCP trigger reference sample for functions written in C# (isolated process mode) and deployed to Azure using the Azure Developer CLI (`azd`). The sample uses managed identity and a virtual network to make sure deployment is secure by default. 
+This is a quickstart template to easily build and deploy a custom remote MCP server to the cloud using Azure functions. You can clone/restore/run on your local machine with debugging, and `azd up` to have it in the cloud in a couple minutes.  The MCP server is secured by design using keys and HTTPs, and allows more options for OAuth using EasyAuth and network isolation using VNET.  
 If you're looking for this sample in more languages check out the [Node.js/TypeScript](typescript) and [Python]() samples.  
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=836901178)
@@ -114,7 +114,7 @@ Note by default this will use the webhooks route: `/runtime/webhooks/mcp/sse`.  
     ```
 1. **List Tools**.  Click on a tool and **Run Tool**.  
 
-## Deploy to Azure
+## Deploy to Azure for Remote MCP
 
 Run this [azd](https://aka.ms/azd) command to provision the function app, with any required Azure resources, and deploy your code:
 
