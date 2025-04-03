@@ -68,12 +68,10 @@ Debug the code in debug mode using your preferred development environment.
     ```
 
     ```plaintext
-    // NYI - but ETA is today
     Save this snippet as snippet1 
     ```
 
     ```plaintext
-    // NYI - but ETA is today
     Retrieve snippet1 and apply to newFile.ts
     ```
 1. When prompted to run the tool, consent by clicking **Continue**
