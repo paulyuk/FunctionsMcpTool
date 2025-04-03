@@ -34,23 +34,6 @@ If you're looking for this sample in more languages check out the [.NET/C#](../d
   + [Visual Studio Code](https://code.visualstudio.com/)
   + [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 
-## Initialize the local project
-
-You can initialize a project from this `azd` template in one of these ways:
-
-+ Clone the GitHub template repository locally
-
-or
-
-+ Use this `azd init` command from an empty local (root) folder:
-
-    ```shell
-    azd init --template functions-quickstart-typescript-mcp-azd
-    ```
-    >**NYI** `azd init` will not work until we publish this to Awesome AZD Gallery.  For now just clone this repo.
-
-    Supply an environment name, such as `mcpquickstart` when prompted. In `azd`, the environment is used to maintain a unique deployment context for your app.
-
 ## Prepare your local environment
 
 An Azure Storage Emulator is needed for this particular sample because we will save and get snippets from blob storage. 
@@ -178,36 +161,107 @@ The function code for the `getSnippet` and `saveSnippet` endpoints are defined i
 This shows the code for a few MCP server examples (get string, get object, save object):
 
 ```typescript
-app.mcp.sayHello = async function(_context: InvocationContext): Promise<string> {
-  context.log('Saying hello');
-  return "Hello I am MCP Tool!";
-};
+// Hello function - responds with hello message
+export async function mcpToolHello(context: InvocationContext): Promise<string> {
+    return "Hello I am MCP Tool!";
+}
 
-app.mcp.getSnippet = async function(_context: InvocationContext, { params }: ToolRequestMessage): Promise<any> {
-  const name = params.snippetname as string;
-  const blobName = `${name}.txt`;
-  
-  const containerClient = blobServiceClient.getContainerClient("snippets");
-  const blobClient = containerClient.getBlobClient(blobName);
-  
-  const downloadResponse = await blobClient.download();
-  const downloaded = await streamToBuffer(downloadResponse.readableStreamBody);
-  
-  return downloaded.toString();
-};
+// Register the hello tool
+app.mcpTool('hello', {
+    toolName: 'hello',
+    description: 'Simple hello world MCP Tool that responses with a hello message.',
+    handler: mcpToolHello
+});
 
-app.mcp.saveSnippet = async function(_context: InvocationContext, { params }: ToolRequestMessage): Promise<string> {
-  const name = params.snippetname as string;
-  const snippet = params.snippet as string;
-  const blobName = `${name}.txt`;
-  
-  const containerClient = blobServiceClient.getContainerClient("snippets");
-  const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-  
-  await blockBlobClient.upload(snippet, snippet.length);
-  
-  return snippet;
-};
+// GetSnippet function - retrieves a snippet by name
+export async function getSnippet(_message: unknown, context: InvocationContext): Promise<string> {
+    console.info('Getting snippet');
+    
+    // Get snippet name from the tool arguments
+    const mcptoolargs = context.triggerMetadata.mcptoolargs as { snippetname?: string };
+    const snippetName = mcptoolargs?.snippetname;
+
+    console.info(`Snippet name: ${snippetName}`);
+    
+    if (!snippetName) {
+        return "No snippet name provided";
+    }
+    
+    // Get the content from blob binding - properly retrieving from extraInputs
+    const snippetContent = context.extraInputs.get(blobInputBinding);
+    
+    if (!snippetContent) {
+        return `Snippet '${snippetName}' not found`;
+    }
+    
+    console.info(`Retrieved snippet: ${snippetName}`);
+    return snippetContent as string;
+}
+
+
+// Register the GetSnippet tool
+app.mcpTool('getsnippet', {
+    toolName: GET_SNIPPET_TOOL_NAME,
+    description: GET_SNIPPET_TOOL_DESCRIPTION,
+    toolProperties: [
+        {
+            propertyName: SNIPPET_NAME_PROPERTY_NAME,
+            propertyValue: PROPERTY_TYPE,
+            description: SNIPPET_NAME_PROPERTY_DESCRIPTION,
+        }
+    ],
+    extraInputs: [blobInputBinding],
+    handler: getSnippet
+});
+
+// SaveSnippet function - saves a snippet with a name
+export async function saveSnippet(_message: unknown, context: InvocationContext): Promise<string> {
+    console.info('Saving snippet');
+    
+    // Get snippet name and content from the tool arguments
+    const mcptoolargs = context.triggerMetadata.mcptoolargs as { 
+        snippetname?: string;
+        snippet?: string;
+    };
+    
+    const snippetName = mcptoolargs?.snippetname;
+    const snippet = mcptoolargs?.snippet;
+    
+    if (!snippetName) {
+        return "No snippet name provided";
+    }
+    
+    if (!snippet) {
+        return "No snippet content provided";
+    }
+    
+    // Save the snippet to blob storage using the output binding
+    context.extraOutputs.set(blobOutputBinding, snippet);
+    
+    console.info(`Saved snippet: ${snippetName}`);
+    return snippet;
+}
+
+// Register the SaveSnippet tool
+app.mcpTool('savesnippet', {
+    toolName: SAVE_SNIPPET_TOOL_NAME,
+    description: SAVE_SNIPPET_TOOL_DESCRIPTION,
+    toolProperties: [
+        {
+            propertyName: SNIPPET_NAME_PROPERTY_NAME,
+            propertyValue: PROPERTY_TYPE,
+            description: SNIPPET_NAME_PROPERTY_DESCRIPTION,
+        },
+        {
+            propertyName: SNIPPET_PROPERTY_NAME,
+            propertyValue: PROPERTY_TYPE,
+            description: SNIPPET_PROPERTY_DESCRIPTION,
+        }
+    ],
+    extraOutputs: [blobOutputBinding],
+    handler: saveSnippet
+});
+
 ```
 
 ## Next Steps

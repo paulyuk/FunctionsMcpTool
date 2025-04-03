@@ -35,22 +35,6 @@ If you're looking for this sample in more languages check out the [Node.js/TypeS
   + [Visual Studio Code](https://code.visualstudio.com/)
   + [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 
-## Initialize the local project
-
-You can initialize a project from this `azd` template in one of these ways:
-
-+ Clone the GitHub template repository locally
-
-or
-
-+ Use this `azd init` command from an empty local (root) folder:
-
-    ```shell
-    azd init --template functions-quickstart-dotnet-mcp-azd
-    ```
-    >**NYI** `azd init` will not work until we publish this to Awesome AZD Gallery.  For now just clone this repo.
-
-    Supply an environment name, such as `mcpquickstart` when prompted. In `azd`, the environment is used to maintain a unique deployment context for your app.
 
 ## Prepare your local environment
 
