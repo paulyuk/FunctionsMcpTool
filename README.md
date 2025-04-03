@@ -1,6 +1,6 @@
 <!--
 ---
-name: Getting Started with Remote MCP using Azure Functions (.NET/C#)
+name: Getting Started with Remote MCP Servers using Azure Functions (.NET/C#)
 description: This is a quickstart template to easily build and deploy a custom remote MCP server to the cloud using Azure functions. You can clone/restore/run on your local machine with debugging, and `azd up` to have it in the cloud in a couple minutes.  The MCP server is secured by design using keys and HTTPs, and allows more options for OAuth using EasyAuth and network isolation using VNET.  
 page_type: sample
 products:
@@ -125,7 +125,7 @@ azd up
 > This function requires a system key by default which can be obtained from the [portal](https://learn.microsoft.com/en-us/azure/azure-functions/function-keys-how-to?tabs=azure-portal), and then update the URL in your host/client to be:
 > `https://<funcappname>.azurewebsites.net/runtime/webhooks/mcp/sse?code=<systemkey_for_mcp_extension>`
 > via command line you can call `az functionapp keys list --resource-group <resource_group> --name <function_app_name>`
-> Additionally, [EasyAuth](https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization) can be used to set up your favorite OAuth provider including Entra.  
+> Additionally, [API Management]() can be used for improved security and policies over your MCP Server, and [EasyAuth](https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization) can be used to set up your favorite OAuth provider including Entra.  
 
 You can opt-in to a VNet being used in the sample. To do so, do this before `azd up`
 
@@ -184,3 +184,10 @@ public string SaveSnippet(
     return snippet;
 }
 ```
+
+## Next Steps
+
+- Add [API Management]() to your MCP server
+- Add [EasyAuth]() to your MCP server
+- Enable VNET using VNET_ENABLED=true flag
+- Learn more about [related MCP efforts from Microsoft]()

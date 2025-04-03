@@ -1,56 +1,97 @@
+<!--
+---
+name: Getting Started with Remote MCP Servers using Azure Functions (Node.js/TypeScript)
+description: This is a quickstart template to easily build and deploy a custom remote MCP server to the cloud using Azure functions. You can clone/restore/run on your local machine with debugging, and `azd up` to have it in the cloud in a couple minutes.  The MCP server is secured by design using keys and HTTPs, and allows more options for OAuth using EasyAuth and network isolation using VNET.  
+page_type: sample
+products:
+- azure-functions
+- azure
+- entra-id
+- mcp
+urlFragment: starter-http-trigger-typescript
+languages:
+- typescript
+- javascript
+- node
+- bicep
+- azdeveloper
+---
+-->
+
 # Getting Started with Remote MCP Servers using Azure Functions (Node.js/TypeScript)
 
 This is a quickstart template to easily build and deploy a custom remote MCP server to the cloud using Azure functions. You can clone/restore/run on your local machine with debugging, and `azd up` to have it in the cloud in a couple minutes.  The MCP server is secured by design using keys and HTTPs, and allows more options for OAuth using EasyAuth and network isolation using VNET.  
+If you're looking for this sample in more languages check out the [.NET/C#](../dotnet) and [Python]() versions.
 
-## Steps to Get Started
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=836901178)
 
-### 1. Fork and Clone the Repository
-Fork the folder in the repository `FunctionsMcpTool`.
+## Prerequisites
 
-Then change to the `typescript` folder in a new terminal window
-```shell
-cd typescript
-```
++ [Node.js](https://nodejs.org/en/download/) version 18 or higher
++ [Azure Functions Core Tools](https://learn.microsoft.com/azure/azure-functions/functions-run-local?pivots=programming-language-javascript#install-the-azure-functions-core-tools)
++ [Azure Developer CLI](https://aka.ms/azd)
++ To use Visual Studio Code to run and debug locally:
+  + [Visual Studio Code](https://code.visualstudio.com/)
+  + [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 
-### 2. Install Required Extensions
-Navigate to the forked folder and execute the following command to install the required extensions for MCP Tool support:
-```bash
-func extensions install
-```
+## Initialize the local project
 
-### 3. Install Dependencies
-Run the following command to install the necessary dependencies. Note that `@azure/functions` is changed to support the feature version `4.7.0-beta.0-alpha.20250331.2`.
-```bash
-npm install
-```
+You can initialize a project from this `azd` template in one of these ways:
 
-### 4. Build the Project
-Run the following command to build the project:
-```bash
-npm run build
-```
++ Clone the GitHub template repository locally
 
-### 5. Start Azurite
+or
+
++ Use this `azd init` command from an empty local (root) folder:
+
+    ```shell
+    azd init --template functions-quickstart-typescript-mcp-azd
+    ```
+    >**NYI** `azd init` will not work until we publish this to Awesome AZD Gallery.  For now just clone this repo.
+
+    Supply an environment name, such as `mcpquickstart` when prompted. In `azd`, the environment is used to maintain a unique deployment context for your app.
+
+## Prepare your local environment
 
 An Azure Storage Emulator is needed for this particular sample because we will save and get snippets from blob storage. 
 
-```shell
-docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 \
-    mcr.microsoft.com/azure-storage/azurite
-```
+1. Start Azurite
+
+    ```shell
+    docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 \
+        mcr.microsoft.com/azure-storage/azurite
+    ```
 
 >**Note** if you use Azurite coming from VS Code extension you need to run `Azurite: Start` now or you will see errors.
 
-### 6. Start the Azure Functions
-Run the following command to start the Azure Functions:
-```bash
-func start
-```
+## Run your MCP Server locally from the terminal
+
+1. Navigate to the typescript folder
+   ```shell
+   cd typescript
+   ```
+
+2. Install required extensions
+   ```shell
+   func extensions install
+   ```
+
+3. Install dependencies
+   ```shell
+   npm install
+   ```
+
+4. Build the project
+   ```shell
+   npm run build
+   ```
+
+5. Start the Functions host locally:
+   ```shell
+   func start
+   ```
 
 Note by default this will use the webhooks route: `/runtime/webhooks/mcp/sse`.  Later we will use this in Azure to set the key on client/host calls: `/runtime/webhooks/mcp/sse?code=<system_key>`
-
-### 6. Debug the Code
-Debug the code in debug mode using your preferred development environment.
 
 ## Use the MCP server from within a client/host
 
@@ -94,7 +135,7 @@ Debug the code in debug mode using your preferred development environment.
     ```
 1. **List Tools**.  Click on a tool and **Run Tool**.  
 
-## Deploy to Azure
+## Deploy to Azure for Remote MCP
 
 Run this [azd](https://aka.ms/azd) command to provision the function app, with any required Azure resources, and deploy your code:
 
@@ -106,7 +147,7 @@ azd up
 > This function requires a system key by default which can be obtained from the [portal](https://learn.microsoft.com/en-us/azure/azure-functions/function-keys-how-to?tabs=azure-portal), and then update the URL in your host/client to be:
 > `https://<funcappname>.azurewebsites.net/runtime/webhooks/mcp/sse?code=<systemkey_for_mcp_extension>`
 > via command line you can call `az functionapp keys list --resource-group <resource_group> --name <function_app_name>`
-> Additionally, [EasyAuth](https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization) can be used to set up your favorite OAuth provider including Entra.  
+> Additionally, [API Management]() can be used for improved security and policies over your MCP Server, and [EasyAuth](https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization) can be used to set up your favorite OAuth provider including Entra.  
 
 You can opt-in to a VNet being used in the sample. To do so, do this before `azd up`
 
@@ -129,4 +170,50 @@ When you're done working with your function app and related resources, you can u
 ```shell
 azd down
 ```
+
+## Source Code
+
+The function code for the `getSnippet` and `saveSnippet` endpoints are defined in the TypeScript files in the `src` directory. The MCP function annotations expose these functions as MCP Server tools.
+
+This shows the code for a few MCP server examples (get string, get object, save object):
+
+```typescript
+app.mcp.sayHello = async function(_context: InvocationContext): Promise<string> {
+  context.log('Saying hello');
+  return "Hello I am MCP Tool!";
+};
+
+app.mcp.getSnippet = async function(_context: InvocationContext, { params }: ToolRequestMessage): Promise<any> {
+  const name = params.snippetname as string;
+  const blobName = `${name}.txt`;
+  
+  const containerClient = blobServiceClient.getContainerClient("snippets");
+  const blobClient = containerClient.getBlobClient(blobName);
+  
+  const downloadResponse = await blobClient.download();
+  const downloaded = await streamToBuffer(downloadResponse.readableStreamBody);
+  
+  return downloaded.toString();
+};
+
+app.mcp.saveSnippet = async function(_context: InvocationContext, { params }: ToolRequestMessage): Promise<string> {
+  const name = params.snippetname as string;
+  const snippet = params.snippet as string;
+  const blobName = `${name}.txt`;
+  
+  const containerClient = blobServiceClient.getContainerClient("snippets");
+  const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+  
+  await blockBlobClient.upload(snippet, snippet.length);
+  
+  return snippet;
+};
+```
+
+## Next Steps
+
+- Add [API Management]() to your MCP server
+- Add [EasyAuth]() to your MCP server
+- Enable VNET using VNET_ENABLED=true flag
+- Learn more about [related MCP efforts from Microsoft]()
 
