@@ -34,8 +34,6 @@ Run the following command to start the Azure Functions host:
 func host start
 ```
 
-npx @modelcontextprotocol/inspector node build/index.js
-
 ## 🔗 Installation & Setup
 
 ### 4. Start MCP Inspector
@@ -48,16 +46,24 @@ npx @modelcontextprotocol/inspector node build/index.js
 
 ### 5. Configure Connection
 
-Transport Type: Select SSE (Server-Sent Events)
+Transport Type: SSE (Server-Sent Events)\
 URL: <http://0.0.0.0:7071/runtime/webhooks/mcp/sse>
 
 ### 6. Connect to Server
 
 Click Connect within the MCP Inspector UI.
 
-## Explore Tools
+## 🧰 Explore Tools
 
 Once generated:
 
 - You can list all generated tools
 - Select any tool to begin interacting with your Python function through MCP
+
+## ✅ Verification
+
+To verify the setup is working:
+
+- Confirm the MCP Inspector shows the connection is active
+- Tools appear in the inspector panel after connection
+- Selecting a tool returns the expected behavior or response
